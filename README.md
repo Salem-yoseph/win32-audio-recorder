@@ -1,3 +1,5 @@
+![Audio Recorder Cover](cover.png)
+
 # 🎙️ Win32 Audio Recorder
 
 A lightweight native Windows console audio recorder written in C using the WinMM (Windows Multimedia) API.  
