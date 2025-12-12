@@ -1,4 +1,4 @@
-#🎙️ Win32 Audio Recorder
+# 🎙️ Win32 Audio Recorder
 <p align="center"> <img src="cover.png" alt="Audio Recorder Cover" width="800"> </p>
 <p align="center"> <img src="https://img.shields.io/badge/Language-C-blue.svg">
   <img src="https://img.shields.io/badge/Platform-Windows-0078D6.svg">
@@ -9,7 +9,7 @@
 A lightweight native Windows console audio recorder written in C using the WinMM (Windows Multimedia) API.
 Supports Start / Stop / Pause / Resume, unlimited recording, automatic WAV naming, and live timer display.
 
-##✨ Features
+## ✨ Features
 
 🎚️ Start, Stop, Pause, and Resume recording
 
@@ -25,9 +25,9 @@ Supports Start / Stop / Pause / Resume, unlimited recording, automatic WAV namin
 
 📦 Outputs correct 16-bit PCM WAV files
 
-##🛠️ Build Instructions
+## 🛠️ Build Instructions
 
-###🔵 Using MSYS2 MinGW64 (Recommended)
+### 🔵 Using MSYS2 MinGW64 (Recommended)
 
 IMPORTANT: Run in MSYS2 MinGW 64-bit terminal, NOT PowerShell.
 
