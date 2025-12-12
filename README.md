@@ -1,58 +1,60 @@
 # 🎙️ Win32 Audio Recorder
-<p align="center"> <img src="cover.png" alt="Audio Recorder Cover" width="800"> </p>
-<p align="center"> <img src="https://img.shields.io/badge/Language-C-blue.svg">
-  <img src="https://img.shields.io/badge/Platform-Windows-0078D6.svg">
-  <img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg"> 
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg"> 
-  <img src="https://img.shields.io/github/stars/Salem-yoseph/win32-audio-recorder?style=social"> </p>
 
-A lightweight native Windows console audio recorder written in C using the WinMM (Windows Multimedia) API.
-Supports Start / Stop / Pause / Resume, unlimited recording, automatic WAV naming, and live timer display.
+<p align="center">
+  <img src="cover.png" alt="Audio Recorder Cover" width="800">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-C-blue.svg">
+  <img src="https://img.shields.io/badge/Platform-Windows-0078D6.svg">
+  <img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
+  <img src="https://img.shields.io/github/stars/Salem-yoseph/win32-audio-recorder?style=social">
+</p>
+
+A lightweight native Windows console audio recorder written in C using the WinMM (Windows Multimedia) API.  
+Supports **Start / Stop / Pause / Resume**, **unlimited recording**, **automatic WAV naming**, and **live timer display**.
+
+---
 
 ## ✨ Features
 
-🎚️ Start, Stop, Pause, and Resume recording
+- 🎚️ Start, Stop, Pause, and Resume recording  
+- ♾️ Unlimited recording duration (streams directly to disk)  
+- 💾 Auto-generated filenames (`record_001.wav`, `record_002.wav`, …)  
+- ⏱️ Real-time recording timer  
+- 🎤 Records from default Windows microphone  
+- 🔧 Uses only built-in Windows APIs (`windows.h`, `mmsystem.h`, `winmm.lib`)  
+- 📦 Outputs correct 16-bit PCM WAV files  
 
-♾️ Unlimited recording duration (streams directly to disk)
-
-💾 Auto-generated filenames (record_001.wav, record_002.wav, …)
-
-⏱️ Real-time recording timer
-
-🎤 Records from default Windows microphone
-
-🔧 Uses only built-in Windows APIs (windows.h, mmsystem.h, winmm.lib)
-
-📦 Outputs correct 16-bit PCM WAV files
+---
 
 ## 🛠️ Build Instructions
 
 ### 🔵 Using MSYS2 MinGW64 (Recommended)
 
-IMPORTANT: Run in MSYS2 MinGW 64-bit terminal, NOT PowerShell.
+> IMPORTANT: Run in **MSYS2 MinGW 64-bit Terminal**, NOT PowerShell.
 
+```bash
 gcc record.c -o record.exe -lwinmm
-
-🟣 Using Microsoft Visual C++ (Developer Command Prompt)
+### 🟣 Using Microsoft Visual C++ (Developer Command Prompt)
 cl record.c winmm.lib
-
 ▶️ Usage
 
 Run:
 
 record.exe
 
+Keyboard Controls
 
-Keyboard Controls:
+Key  	Action
+1	    Start recording
+2	    Stop and save WAV file
+3    	Pause recording
+4   	Resume recording
+5   	Exit program
 
-Key	Action
-1	Start recording
-2	Stop and save WAV file
-3	Pause recording
-4	Resume recording
-5	Exit program
-
-Recordings appear as:
+Output Files Example
 
 record_001.wav
 record_002.wav
@@ -60,7 +62,7 @@ record_003.wav
 
 🔧 Technical Overview
 
-The program uses the WaveIn API inside WinMM to capture live microphone input.
+The program uses the WinMM WaveIn API for capturing microphone audio.
 
 Audio Format
 
@@ -72,33 +74,34 @@ PCM
 
 Mono
 
-Main WinMM Functions
+Main WinMM Functions Used
 
-waveInOpen – open the input device
+waveInOpen — open default audio input
 
-waveInPrepareHeader – prepare audio buffers
+waveInPrepareHeader — prepare buffers
 
-waveInAddBuffer – queue buffers for recording
+waveInAddBuffer — queue buffers
 
-waveInProc – callback when buffer fills
+waveInProc — callback when filled
 
-waveInStart – begin capture
+waveInStart — begin capture
 
-waveInStop – stop capture
+waveInStop — stop capture
 
-waveInClose – close device
+waveInClose — close device
 
 WAV File Handling
 
-Reserve 44 bytes for header
+Reserves 44-byte header
 
-Stream raw PCM audio into the file
+Streams PCM audio directly to disk
 
-Fix header sizes after stopping
+Updates header sizes on stop
 
-This allows unlimited-length recordings without high memory use.
+This enables unlimited recording with low RAM usage.
 
 🔊 Audio Pipeline Diagram
+
 Microphone
     ↓
 WinMM (waveInOpen)
@@ -117,57 +120,40 @@ Your WAV File 🎧
 win32-audio-recorder/
 │
 ├── record.c          # Main program
-├── README.md         # This file
+├── README.md         # Documentation
 ├── LICENSE           # MIT License
 └── cover.png         # Banner image
 
 🩹 Troubleshooting
 ❗ gcc: command not found
 
-➡ You are in PowerShell.
+➡ You're in PowerShell.
 Open MSYS2 MinGW 64-bit.
 
 ❗ undefined reference to waveInOpen
 
-➡ You forgot this flag:
-
+➡ Missing library:
 -lwinmm
 
-❗ Keys don’t respond
+❗ Keys do not respond
 
-➡ Click the console window to give it focus.
+➡ Click inside the terminal window to give it focus.
 
 ❗ No audio recorded
 
-➡ Check Windows Settings → Privacy → Microphone → Allow apps to use microphone.
+➡ Check Windows Settings → Privacy → Microphone → Allow apps to access microphone.
 
 📜 License (MIT)
 MIT License
 
 Copyright (c) 2025 Salem
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the “Software”), to deal
-in the Software without restriction, including without limitation the rights 
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-copies of the Software, and to permit persons to whom the Software is 
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in 
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
-THE SOFTWARE.
+Permission is hereby granted...
 
 🙏 Acknowledgments
 
 Microsoft WinMM API
 
-Win32 documentation & community examples
+Win32 documentation & examples
 
-Audio DSP & WAV format documentation
+Audio DSP & WAV format references
